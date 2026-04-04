@@ -1,49 +1,14 @@
-#loginH1{
-    text-align:center;
-    color:pink;
+body {
+  font-family: Arial;
+  text-align: center;
+  margin-top: 50px;
 }
-#OptionBtn{
-    text-align: center;
-    margin:20px;
-    background-color: pink;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 200px;
+input {
+  display: block;
+  margin: 10px auto;
+  padding: 8px;
 }
-#OptionBtn:hover {
-    background-color: #ff69b4;
-}
-#loginBody{
-    padding: 50px;
-}
-#accCreateBody,#accLoginBody{
-    padding: 50px;
-}
-#name,#email,#password,#confirmPassword,#LoginBtn{
-    display:grid;
-    margin: 10px;
-    padding: 10px;
-    width: 200px;
-}
-#LoginBtn{
-    text-align: center;
-    padding: 5px;
-}
-#rec{
-    font-size: 24px;
-    color: rgb(5, 170, 203);
-    margin: 20px;
-}
-.moviePoster{
-    width: 160px;
-    height: 250px;
-    padding: 10px;
-}
-fieldset{
-    margin: 20px;
-    padding: 20px;
-    text-align: center;
+button {
+  padding: 8px 12px;
+  margin: 5px;
 }
