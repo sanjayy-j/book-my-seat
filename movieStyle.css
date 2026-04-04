@@ -1,0 +1,44 @@
+#loginH1{
+    text-align:center;
+    color:pink;
+}
+#OptionBtn{
+    text-align: center;
+    margin:20px;
+    background-color: pink;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 200px;
+}
+#OptionBtn:hover {
+    background-color: #ff69b4;
+}
+#loginBody{
+    padding: 50px;
+}
+#accCreateBody,#accLoginBody{
+    padding: 50px;
+}
+#name,#email,#password,#confirmPassword,#LoginBtn{
+    display:grid;
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+}
+#LoginBtn{
+    text-align: center;
+    padding: 5px;
+}
+#rec{
+    font-size: 24px;
+    color: rgb(5, 170, 203);
+    margin: 20px;
+}
+.moviePoster{
+    width: 160px;
+    height: 250px;
+    padding: 10px;
+}
