@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookMySeat - Reservations</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("L03Pzrso6fJbpdziq");
+       })();
+    </script>
+</head>
+<body onload="drawScreen()">
+    <header>
+        <h1 class="brand-logo">BookMySeat</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="booking.html" class="active">Book Tickets</a>
+            <a href="team.html">Meet the Team</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="booking-layout">
+            <div class="booking-options elegant-panel">
+                <h2 style="font-size: 2.2rem; margin-top: 0; margin-bottom: 35px;">Reservations</h2>
+                
+                <div class="form-group">
+                    <label>Cinematic Experience</label>
+                    <select id="movieSelect">
+                        <option value="200">The Great Adventure (₹200)</option>
+                        <option value="250">Sci-Fi Universe (₹250)</option>
+                        <option value="150">Comedy Nights (₹150)</option>
+                        <option value="300">IMAX 3D Experience (₹300)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Showtime</label>
+                    <div class="time-selector">
+                        <input type="radio" id="t1" name="time" value="morning" checked>
+                        <label for="t1" class="time-btn">10:00 AM</label>
+                        
+                        <input type="radio" id="t2" name="time" value="afternoon">
+                        <label for="t2" class="time-btn">02:30 PM</label>
+                        
+                        <input type="radio" id="t3" name="time" value="evening">
+                        <label for="t3" class="time-btn">08:00 PM</label>
+                    </div>
+                </div>
+
+                <div class="booking-summary-box">
+                    <div class="form-group" style="text-align: left; margin-bottom: 25px;">
+                        <label for="clientEmail">Ticket Delivery Email</label>
+                        <input type="email" id="clientEmail" placeholder="e.g. concierge@email.com" style="background: transparent;">
+                    </div>
+                    
+                    <p id="summaryText">Seats Selected: 0 <br><span style="font-size:0.5em; color:var(--text-secondary); text-transform:uppercase; letter-spacing:2px;">Rate: ₹200</span><br><br><span style="color:#fff;">Subtotal: ₹0</span></p>
+                    <button class="btn" style="width: 100%;" onclick="checkoutAndSendEmail()">Finalize Purchase</button>
+                </div>
+            </div>
+
+            <div class="theater-section elegant-panel">
+                <div class="screen-area">
+                    <canvas id="screenCanvas" width="450" height="80"></canvas>
+                    <div class="screen-label">Screen Center</div>
+                </div>
+
+                <div class="seat-legend">
+                    <div class="legend-item"><div class="seat-sample available"></div> Available</div>
+                    <div class="legend-item"><div class="seat-sample selected"></div> Selected</div>
+                    <div class="legend-item"><div class="seat-sample occupied"></div> Unavailable</div>
+                </div>
+
+                <div class="theater-seats">
+                    <div class="seat-row">
+                        <div class="row-label">A</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                    </div>
+                    <div class="seat-row">
+                        <div class="row-label">B</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                    </div>
+                    <div class="seat-row">
+                        <div class="row-label">C</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                    </div>
+                    <div class="seat-row">
+                        <div class="row-label">D</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                    </div>
+                    <div class="seat-row">
+                        <div class="row-label">E</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()">
+                    </div>
+                    <div class="seat-row" style="margin-top: 15px;">
+                        <div class="row-label">F</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" disabled>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                    </div>
+                    <div class="seat-row">
+                        <div class="row-label">G</div>
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                        <input type="checkbox" class="seat" onchange="calculatePrice()" title="Premium">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BookMySeat. An exclusive cinema experience.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
