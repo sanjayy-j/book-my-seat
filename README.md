@@ -54,9 +54,9 @@ movie-booking-system/
 ## 👨‍💻 Meet The Architects
 
 Designed and Developed by:
-* **Sanjay J** — Lead Engineer
-* **JAIVARSHAN V** — Lead Engineer
-* **Jani Rose** — Lead Engineer
-* **Dr. Baiju BV** — Project Director & Mentor
+* **Sanjay J** — Developer
+* **JAIVARSHAN V** — Developer
+* **Jani Rose** — Developer
+* **Dr. Baiju BV** — Project Mentor
 
 > *This project was built for academic defense purposes. Custom API keys for Firebase and EmailJS are initialized natively via their respective initialization environments.*
