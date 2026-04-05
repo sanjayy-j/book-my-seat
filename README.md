@@ -46,9 +46,7 @@ movie-booking-system/
 ├── team.html        # Academic Developers & Project Mentor Directory
 │
 ├── style.css        # Global Stylesheet (Variables, Glassmorphism, Animations)
-├── script.js        # Core DOM Engine (Pricing, Canvas, Firebase, EmailJS)
-│
-└── VIVA_GUIDE.md    # Internal Academic Defense Cheat-Sheet & Architecture Notes
+└── script.js        # Core DOM Engine (Pricing, Canvas, Firebase, EmailJS)
 ```
 
 ---
