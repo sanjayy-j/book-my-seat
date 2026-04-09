@@ -56,7 +56,7 @@ movie-booking-system/
 Designed and Developed by:
 * **Sanjay J** — Developer
 * **JAIVARSHAN V** — Developer
-* **Jani Rose** — Developer
+* **Jani Rose Lawwellman** — Developer
 * **Dr. Baiju BV** — Project Mentor
 
 > *This project was built for academic defense purposes. Custom API keys for Firebase and EmailJS are initialized natively via their respective initialization environments.*
