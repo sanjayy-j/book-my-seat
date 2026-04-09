@@ -137,9 +137,16 @@ function checkoutAndSendEmail() {
 
     var ticketPrice = parseInt(movieSelect.value);
     var checkedCount = 0;
+    var rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+    var selectedSeatNames = [];
+    
     for (var i = 0; i < seats.length; i++) {
         if (seats[i].checked && !seats[i].disabled) {
             checkedCount++;
+            var rowIndex = Math.floor(i / 12);
+            var colIndex = (i % 12) + 1;
+            var rowLetter = rowIndex < rows.length ? rows[rowIndex] : 'X';
+            selectedSeatNames.push(rowLetter + colIndex);
         }
     }
 
@@ -150,14 +157,20 @@ function checkoutAndSendEmail() {
 
     var totalPrice = checkedCount * ticketPrice;
     var movieName = movieSelect.options[movieSelect.selectedIndex].text;
+    
+    var selectedTimeInput = document.querySelector('input[name="time"]:checked');
+    var showtime = selectedTimeInput ? document.querySelector('label[for="' + selectedTimeInput.id + '"]').innerText : "10:00 AM";
+    var confirmationId = Math.floor(Math.random() * 90000000 + 10000000);
 
     // Define the dynamic variables for your EmailJS Template
     var templateParams = {
         to_email: clientEmail,
-        movie_name: movieName,
-        total_seats: checkedCount,
-        total_price: "₹" + totalPrice,
-        message: "Your booking for " + movieName + " is officially confirmed. Enjoy the show!"
+        confirmation_id: confirmationId,
+        movie_title: movieName,
+        theater_name: "BookMySeat Cinema",
+        showtime: showtime,
+        seats: selectedSeatNames.join(', '),
+        total_price: "₹" + totalPrice
     };
 
     // Change button text to reflect loading state
