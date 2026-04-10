@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
+/* ==========================================================================
+   1. GLOBAL VARIABLES & THEME SETUP
+   Defines the core colors and gradients used throughout the site. 
+   Using CSS variables makes it easy to switch themes later.
+   ========================================================================== */
 :root {
     --bg-base: #030305;
     --text-primary: #ffffff;
@@ -11,169 +16,547 @@
     --accent-glow: rgba(168, 85, 247, 0.25);
 }
 
+/* ==========================================================================
+   2. BASE STYLES & TYPOGRAPHY
+   Sets up the background with fixed glowing orbs and default text styles.
+   ========================================================================== */
 body {
     background-color: var(--bg-base);
     color: var(--text-primary);
     font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
-    display: flex; flex-direction: column;
-    background-image: 
+    display: flex;
+    flex-direction: column;
+    /* Draws two massive radial gradients as the background */
+    background-image:
         radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.08), transparent 25%),
         radial-gradient(circle at 85% 30%, rgba(236, 72, 153, 0.08), transparent 25%);
     background-attachment: fixed;
     letter-spacing: -0.3px;
 }
 
-h1, h2, h3, h4 { font-weight: 700; letter-spacing: -1px; }
+h1,h2,h3,h4 {
+    font-weight: 700;
+    letter-spacing: -1px;
+}
 
-/* Header */
+/* ==========================================================================
+   3. HEADER & NAVIGATION
+   The top navbar that sticks to the top of the screen ("position: sticky")
+   and uses "backdrop-filter" for the frosted glass effect.
+   ========================================================================== */
 header {
     background: rgba(3, 3, 5, 0.5);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Safari support */
     padding: 20px 50px;
-    display: flex; justify-content: space-between; align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid var(--border-subtle);
-    position: sticky; top: 0; z-index: 100;
+    position: sticky;
+    top: 0;
+    z-index: 100; /* Keeps header above other content */
 }
 
+/* Renders the BookMySeat logo text with a gradient color fill */
 .brand-logo {
-    margin: 0; font-size: 1.8rem; font-weight: 800;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 800;
     background: var(--accent-gradient);
-    -webkit-background-clip: text; color: transparent; background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    background-clip: text;
 }
 
+/* Navigation links */
 nav a {
-    color: var(--text-secondary); text-decoration: none; margin-left: 35px;
-    font-size: 0.95em; font-weight: 500; transition: color 0.3s ease;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-left: 35px;
+    font-size: 0.95em;
+    font-weight: 500;
+    transition: color 0.3s ease;
 }
 
-nav a:hover, nav a.active { color: var(--text-primary); }
+nav a:hover,
+nav a.active {
+    color: var(--text-primary);
+}
 
-/* Main layout */
-main { flex: 1; padding: 60px 20px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box; }
+/* ==========================================================================
+   4. MAIN LAYOUT
+   The primary wrapper limiting screen width to 1200px and centering content.
+   ========================================================================== */
+main {
+    flex: 1; /* Pushes the footer to the bottom */
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-/* Hero */
-.hero { text-align: center; padding: 80px 0 60px; }
-.hero h2 { font-size: 4.5rem; margin-bottom: 20px; text-shadow: 0 0 40px rgba(255,255,255,0.1); line-height: 1.1;}
-.hero p { font-size: 1.25rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+/* Hero Section (Homepage introductory text) */
+.hero {
+    text-align: center;
+    padding: 80px 0 60px;
+}
 
-/* Premium Glass Panel */
+.hero h2 {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+    line-height: 1.1;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   5. COMPONENT: GLASS PANEL
+   Re-usable class that applies a beautiful translucent frosted glass box.
+   ========================================================================== */
 .elegant-panel {
     background: var(--glass-bg);
-    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--glass-border);
     border-radius: 20px;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-/* Ticker */
+/* ==========================================================================
+   6. HOMEPAGE MOVIE TICKER (Marquee)
+   ========================================================================== */
 .marquee-container {
-    width: 100%; overflow: hidden; background: rgba(255,255,255,0.02);
-    color: var(--text-secondary); padding: 15px 0;
-    border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle);
-    margin: 30px 0 60px; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; font-size: 0.85rem;
+    width: 100%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-secondary);
+    padding: 15px 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    margin: 30px 0 60px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.85rem;
 }
 
-/* Forms */
-.form-container { max-width: 450px; margin: 40px auto; padding: 50px 40px; }
-.form-container h2 { font-size: 2rem; margin-top: 0; margin-bottom: 30px; text-align: center;}
-.form-group { margin-bottom: 25px; }
-.form-group label { display: block; margin-bottom: 10px; font-weight: 500; font-size: 0.9em; color: var(--text-secondary); }
-
-.form-group input:not([type="radio"]):not([type="checkbox"]), .form-group select {
-    width: 100%; padding: 15px 20px; box-sizing: border-box; 
-    background: rgba(0,0,0,0.3); color: var(--text-primary); 
-    border: 1px solid var(--border-subtle); border-radius: 12px;
-    font-family: inherit; font-size: 1rem; transition: all 0.3s;
+/* ==========================================================================
+   7. FORM ELEMENTS (Inputs & Labels)
+   ========================================================================== */
+.form-container {
+    max-width: 450px;
+    margin: 40px auto;
+    padding: 50px 40px;
 }
 
-.form-group input:focus, .form-group select:focus {
-    outline: none; border-color: #a855f7; box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+.form-container h2 {
+    font-size: 2rem;
+    margin-top: 0;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-/* Select Dropdown Bug Fix! */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+}
+
+/* Styling the Text Inputs and Dropdowns */
+.form-group input:not([type="radio"]):not([type="checkbox"]),
+.form-group select {
+    width: 100%;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+/* Glowing border effect on click */
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #a855f7;
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.15);
+}
+
+/* Select Dropdown Bug Fix! (Ensures contrast in options) */
 .form-group select option {
-    background-color: #0f172a; 
+    background-color: #0f172a;
     color: #ffffff;
     padding: 10px;
 }
 
-/* Buttons */
+/* ==========================================================================
+   8. COMPONENT: BUTTONS
+   ========================================================================== */
 .btn {
-    display: inline-block; background: var(--accent-gradient);
-    color: #fff; padding: 16px 32px; text-decoration: none; border-radius: 12px;
-    border: none; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s;
+    display: inline-block;
+    background: var(--accent-gradient);
+    color: #fff;
+    padding: 16px 32px;
+    text-decoration: none;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
     box-shadow: 0 10px 25px var(--accent-glow);
 }
-.btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px var(--accent-glow); filter: brightness(1.1); }
 
-.btn.btn-outline { 
-    background: transparent; box-shadow: none;
-    border: 1px solid var(--border-subtle); color: var(--text-primary); 
+.btn:hover {
+    transform: translateY(-3px); /* Levitation effect */
+    box-shadow: 0 15px 35px var(--accent-glow);
+    filter: brightness(1.1);
 }
-.btn.btn-outline:hover { background: rgba(255,255,255,0.05); border-color: #fff; box-shadow: none; transform: translateY(-3px); }
 
-/* Movies */
-.movies { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-.movie-card { text-align: left; padding: 20px; transition: transform 0.4s; border-radius: 20px; background: var(--glass-bg); border: 1px solid var(--glass-border);}
-.movie-card:hover { transform: translateY(-8px); border-color: rgba(255,255,255,0.2); }
-.movie-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; border-radius: 12px; margin-bottom: 20px; }
-.movie-card h3 { font-size: 1.5rem; margin-bottom: 15px; margin-top: 0;}
-
-/* Booking Layout */
-.booking-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 40px; }
-@media (max-width: 900px) { .booking-layout { grid-template-columns: 1fr; } }
-.booking-options { padding: 40px; }
-
-/* Radio Buttons */
-.time-selector { display: flex; gap: 10px; margin-top: 10px; }
-.time-selector input[type="radio"] { display: none; }
-.time-btn { flex: 1; text-align: center; border: 1px solid var(--border-subtle); padding: 14px; border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 0.9em; font-weight: 500;}
-.time-selector input[type="radio"]:checked + .time-btn { background: var(--accent-gradient); border-color: transparent; box-shadow: 0 5px 15px var(--accent-glow); }
-
-/* Booking Summary */
-.booking-summary-box { margin-top: 40px; border-top: 1px solid var(--border-subtle); padding-top: 30px; text-align: center; }
-.booking-summary-box p { font-size: 1.8em; font-weight: 600; color: var(--text-primary); margin: 0 0 25px 0; line-height: 1.4; }
-
-/* Theater */
-.theater-section { padding: 50px 30px; display: flex; flex-direction: column; align-items: center; }
-.screen-area { text-align: center; margin-bottom: 40px; width: 100%; max-width: 500px; }
-.screen-label { letter-spacing: 15px; color: var(--text-secondary); font-size: 0.7em; margin-top: -15px; text-transform: uppercase; font-weight: 600;}
-
-.seat-legend { display: flex; gap: 30px; margin-bottom: 50px; font-size: 0.8em; font-weight: 500; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px;}
-.legend-item { display: flex; align-items: center; gap: 10px; }
-.seat-sample { width: 22px; height: 22px; border-radius: 6px; }
-.seat-sample.available { border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.12);}
-.seat-sample.selected { background: var(--accent-gradient); border: none; }
-.seat-sample.occupied { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.15); }
-
-/* Grid */
-.theater-seats { display: flex; flex-direction: column; gap: 18px; }
-.seat-row { display: flex; gap: 14px; align-items: center; }
-.seat-row .row-label { width: 30px; font-weight: 600; color: var(--text-secondary); text-align: right;}
-.seat-row > :nth-child(7) { margin-right: 50px; }
-
-input[type="checkbox"].seat { 
-    appearance: none; -webkit-appearance: none; 
-    width: 28px; height: 28px; background: rgba(255,255,255,0.12); 
-    border-radius: 8px; cursor: pointer; transition: all 0.2s; 
-    border: 1px solid rgba(255,255,255,0.3); outline: none; margin: 0; 
+/* Secondary outline button (Used on the register page) */
+.btn.btn-outline {
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
 }
-input[type="checkbox"].seat:not(:disabled):hover { border-color: #a855f7; transform: scale(1.1); background: rgba(255,255,255,0.2);}
-input[type="checkbox"].seat:checked { background: var(--accent-gradient); border-color: transparent; box-shadow: 0 0 15px var(--accent-glow); transform: scale(1.1);}
-input[type="checkbox"].seat:disabled { background: rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.15); cursor: not-allowed; opacity: 0.6;}
 
-/* Team */
-.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
-.team-card { padding: 40px 30px; text-align: center; border-radius: 20px; transition: transform 0.3s; }
-.team-card:hover { transform: translateY(-5px); }
-.team-photo { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-bottom: 25px; border: 3px solid rgba(255,255,255,0.1); padding: 5px; }
-.team-card h3 { margin-bottom: 5px; font-size: 1.5rem; }
-.team-card p { margin: 8px 0; color: var(--text-secondary); font-size: 0.95em; }
-.team-card a { color: #a855f7; text-decoration: none; font-weight: 600;}
-.team-card a:hover { text-decoration: underline; }
-.mentor-card { position: relative; overflow: hidden; border: 1px solid rgba(236,72,153,0.3);}
-.mentor-card::before { content: ""; position: absolute; top:0; left:0; right:0; height: 4px; background: var(--accent-gradient); }
+.btn.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #fff;
+    box-shadow: none;
+    transform: translateY(-3px);
+}
 
-footer { text-align: center; padding: 40px; color: var(--text-secondary); font-size: 0.9em; border-top: 1px solid var(--border-subtle); margin-top: auto;}
+/* ==========================================================================
+   9. HOMEPAGE MOVIE GRID
+   Responsive Grid automatically creating columns based on screen width
+   ========================================================================== */
+.movies {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.movie-card {
+    text-align: left;
+    padding: 20px;
+    transition: transform 0.4s;
+    border-radius: 20px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+}
+
+.movie-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.movie-poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.movie-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+/* ==========================================================================
+   10. BOOKING PAGE: LAYOUT & TIME SELECTOR
+   ========================================================================== */
+.booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* 33% / 66% split */
+    gap: 40px;
+}
+
+/* Swaps to vertical stacking on small screens */
+@media (max-width: 900px) {
+    .booking-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.booking-options {
+    padding: 40px;
+}
+
+/* Radio Buttons styled as clickable blocks */
+.time-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Hide the actual HTML radio cycle */
+.time-selector input[type="radio"] {
+    display: none;
+}
+
+.time-btn {
+    flex: 1;
+    text-align: center;
+    border: 1px solid var(--border-subtle);
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+/* Highlight the label block when its associated input is selected! */
+.time-selector input[type="radio"]:checked+.time-btn {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    box-shadow: 0 5px 15px var(--accent-glow);
+}
+
+/* ==========================================================================
+   11. BOOKING PAGE: THEATER SCREEN & SEATS
+   ========================================================================== */
+.booking-summary-box {
+    margin-top: 40px;
+    border-top: 1px solid var(--border-subtle);
+    padding-top: 30px;
+    text-align: center;
+}
+
+.booking-summary-box p {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 25px 0;
+    line-height: 1.4;
+}
+
+.theater-section {
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* The curved canvas screen */
+.screen-area {
+    text-align: center;
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.screen-label {
+    letter-spacing: 15px;
+    color: var(--text-secondary);
+    font-size: 0.7em;
+    margin-top: -15px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Legend detailing what seat colors mean */
+.seat-legend {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 50px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.seat-sample {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+}
+
+.seat-sample.available {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.seat-sample.selected {
+    background: var(--accent-gradient);
+    border: none;
+}
+
+.seat-sample.occupied {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Seat Checkboxes Mapping */
+.theater-seats {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.seat-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.seat-row .row-label {
+    width: 30px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+/* Creates the walking aisle in the middle of the theater */
+.seat-row> :nth-child(7) {
+    margin-right: 50px;
+}
+
+/* Core Checkbox Reset and Styling */
+input[type="checkbox"].seat {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    outline: none;
+    margin: 0;
+}
+
+/* Hover effects when the seat is legally interactable */
+input[type="checkbox"].seat:not(:disabled):hover {
+    border-color: #a855f7;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Active checked states */
+input[type="checkbox"].seat:checked {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    box-shadow: 0 0 15px var(--accent-glow);
+    transform: scale(1.1);
+}
+
+/* Already-booked seats (HTML 'disabled' attribute) */
+input[type="checkbox"].seat:disabled {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.15);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ==========================================================================
+   12. TEAM PAGE CARDS
+   ========================================================================== */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+}
+
+.team-card {
+    padding: 40px 30px;
+    text-align: center;
+    border-radius: 20px;
+    transition: transform 0.3s;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+}
+
+.team-photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 25px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    padding: 5px;
+}
+
+.team-card h3 {
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+.team-card p {
+    margin: 8px 0;
+    color: var(--text-secondary);
+    font-size: 0.95em;
+}
+
+.team-card a {
+    color: #a855f7;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.team-card a:hover {
+    text-decoration: underline;
+}
+
+/* Mentor card variant with pink top highlight */
+.mentor-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.mentor-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-gradient);
+}
+
+/* ==========================================================================
+   13. FOOTER
+   ========================================================================== */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: auto;
+}
